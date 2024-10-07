@@ -1,20 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './assets/css/index.css'
-import NavBar from './components/NabBar'
-// import Home from './components/Home'
-import CommunityPost from './components/CommunityPost'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './assets/css/index.css';
+import NabBar from './components/NabBar';
+import Home from './components/Home';
+import Search from './components/Search';
+import Contact from './components/Contact';
+import CommunityPost from './components/CommunityPost';
 
 function App() {
   return (
-    <>
-      <NavBar />
-      <CommunityPost />
-      {/* <Home /> */}
-      {/* <p className='bg-slate-100'>Hello World</p> */}
-    </>
-  )
+    <Router>
+      <NabBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/CommunityPost" element={<CommunityPost />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
