@@ -10,12 +10,12 @@ function CommunityPost() {
   const [reply, setReply] = useState('');
   const [replies, setReplies] = useState([]);
 
-  const handleAddTag = () => {
-    const newTag = prompt('Enter a new tag');
-    if (newTag) {
-      setTags([...tags, newTag]);
-    }
-  };
+  // const handleAddTag = () => {
+  //   const newTag = prompt('Enter a new tag');
+  //   if (newTag) {
+  //     setTags([...tags, newTag]);
+  //   }
+  // };
 
   const handleReplyChange = (e) => {
     setReply(e.target.value);
@@ -58,7 +58,7 @@ function CommunityPost() {
         </p>
       </div>
 
-      <div className="mb-6">
+      {/* <div className="mb-6">
         <div className="flex flex-wrap gap-3">
           {tags.map((tag, index) => (
             <span key={index} className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm">
@@ -68,7 +68,7 @@ function CommunityPost() {
             + Add Tags
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="mt-8">
         <h3 className="text-xl font-medium mb-4">Replies | Comments</h3>

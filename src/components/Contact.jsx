@@ -25,7 +25,7 @@ function Contact() {
 
   return (
     <div className="w-full max-w-md mx-auto mt-10 p-6 bg-slate-100 shadow-md rounded-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Contact Us</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Contact</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
