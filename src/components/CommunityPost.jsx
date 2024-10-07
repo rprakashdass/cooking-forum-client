@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { addPost, getPostAll } from '../service/api';
 
 const currentUser = {
   username: 'Dharun',
@@ -6,33 +7,52 @@ const currentUser = {
 };
 
 function CommunityPost() {
-  const [tags, setTags] = useState([]);
+  // const [tags, setTags] = useState([]);
   const [reply, setReply] = useState('');
   const [replies, setReplies] = useState([]);
-
+  const UserPost=useRef(null)
+  const UserName=currentUser.username;
   // const handleAddTag = () => {
   //   const newTag = prompt('Enter a new tag');
   //   if (newTag) {
   //     setTags([...tags, newTag]);
   //   }
-  // };
+  // }
+  // Fetch posts when the component mounts
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await getPostAll();
+        setReplies(response.data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
 
   const handleReplyChange = (e) => {
     setReply(e.target.value);
   };
 
-  const handlePostReply = () => {
-    if (reply.trim() !== '') {
-      const newReply = {
-        id: Date.now(),
-        text: reply,
-        user: currentUser,
-        timestamp: new Date(),
-      };
-      setReplies([...replies, newReply]);
-      setReply('');
+  const handlePostReply = async () => {
+    // Ensure UserName and UserPost are primitive values (strings)
+    const reply = {
+        user: UserName, 
+        post: UserPost.current.value  
+    };
+
+    try {
+        const res = await addPost(reply);
+        console.log('Post added successfully:', res.data);
+        alert("Post added successfully") ;
+        setReplies([...replies, reply]);
+    } catch (error) {
+        console.error('Error adding post:', error); 
     }
-  };
+};
 
   return (
     <div className="w-[80vw] mx-auto bg-slate-100 mb-5 mt-5 p-6 rounded-lg shadow-md flex justify-center flex-col">
@@ -73,7 +93,7 @@ function CommunityPost() {
       <div className="mt-8">
         <h3 className="text-xl font-medium mb-4">Replies | Comments</h3>
         <div className="mb-6">
-          <textarea
+          <textarea ref={UserPost}
             value={reply}
             onChange={handleReplyChange}
             placeholder="Write a reply..."
@@ -89,13 +109,15 @@ function CommunityPost() {
           {replies.length === 0 ? (
             <p className="text-gray-500">No replies yet.</p>
           ) : (
-            replies.map((replyItem) => (
-              <div key={replyItem.id} className="flex bg-gray-200 p-4 rounded-md shadow-sm">
-                <img
+            replies
+      .filter(replyItem => replyItem.user === currentUser.username) // Filter by current user's username
+      .map((replyItem, index) => (
+              <div key={index} className="flex bg-gray-200 p-4 rounded-md shadow-sm">
+                {/* <img
                   src={replyItem.user.avatar}
                 //   alt={`${replyitem.user.username} avatar`}
                   className="w-10 h-10 rounded-full mr-4"
-                />
+                /> */}
                 <div>
                   {/* <div className="flex items-center space-x-2">
                     <span className="font-semibold text-gray-800">{replyItem.user.username}</span>
@@ -103,8 +125,8 @@ function CommunityPost() {
                       {replyItem.timestamp.toLocaleString()}
                     </span>
                   </div> */}
-                  <span className="font-semibold text-gray-800">{replyItem.user.username}</span>
-                  <p className="text-gray-700 mt-2">{replyItem.text}</p>
+                  <span className="font-semibold text-gray-800">{replyItem.user}</span>
+                  <p className="text-gray-700 mt-2">{replyItem.post}</p>
                 </div>
               </div>
             ))
