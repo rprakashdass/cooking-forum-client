@@ -18,7 +18,6 @@ function Search() {
         setError("No dishes found.");
       }
     } catch (error) {
-      console.error("Error fetching dishes:", error);
       setError("Failed to fetch dishes.");
     }
   };
