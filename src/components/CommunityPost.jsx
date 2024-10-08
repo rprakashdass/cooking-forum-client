@@ -110,7 +110,7 @@ function CommunityPost() {
             <p className="text-gray-500">No replies yet.</p>
           ) : (
             replies
-      .filter(replyItem => replyItem.user === currentUser.username) // Filter by current user's username
+      .filter(replyItem => replyItem.user === currentUser.username)
       .map((replyItem, index) => (
               <div key={index} className="flex bg-gray-200 p-4 rounded-md shadow-sm">
                 {/* <img
