@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = "https://cooking-forum-server.onrender.com/"; 
+const API = "https://cooking-forum-server.onrender.com"; 
 const getDishes = () => axios.get(`${API}/dishes/all`);
 const addDish = (dishData) => axios.post(`${API}/dishes/add`,{dishData}, { withCredentials: true });
 const getRecipesForDish = (dishName) => axios.get(`${API}/dishes/${dishName}/recipes`);
