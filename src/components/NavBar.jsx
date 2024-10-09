@@ -10,8 +10,8 @@ function NavBar() {
   const { username } = useContext(UserContext);
     return (
       <nav className="flex justify-between items-center p-6 bg-gray-100 shadow-md">
-        {/* <div className="text-2xl font-bold">Toppings</div> */}
-        <h1>Welcome, {username ? username : "Nivas"} </h1>
+        <div className="text-2xl font-bold">Toppings {username}</div>
+        {/* <h1>Welcome, {username ? username : "Guest"} </h1> */}
         <ul className="flex gap-6">
         {/* <li className="hover:underline"> */}
             <Link to="/Home" className="hover:underline">
