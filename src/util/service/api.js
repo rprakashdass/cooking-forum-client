@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const API = "http://localhost:7777"; 
 const getDishes = () => axios.get(`${API}/dishes/all`);
 const addDish = (dishData) => axios.post(`${API}/dishes/add`,{dishData}, { withCredentials: true });

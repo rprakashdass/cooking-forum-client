@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDishes, getRecipesForDish } from "../service/api";
+import { getDishes, getRecipesForDish } from "../util/service/api";
 
 function Search() {
   const [searchQuery, setSearchQuery] = useState("");

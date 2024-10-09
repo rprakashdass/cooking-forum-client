@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { addPost, getPostAll } from '../service/api';
+import { addPost, getPostAll } from '../util/service/api';
 
 const currentUser = {
-  username: 'Dharun',
+  username: 'Nivas',
   avatar: 'https://via.placeholder.com/40',
 };
 

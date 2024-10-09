@@ -7,7 +7,7 @@ const CartIndex = () => {
     const exchangeRate = 83;
 
     const ingredients = [
-        { name: 'Tomatoes', price: 3.5, imgSrc: './pictures/download.jpeg' },
+        { name: 'Tomatoes', price: 3.5, imgSrc: '/pictures/download.jpeg' },
         { name: 'Onions', price: 2.5, imgSrc: './pictures/download (1).jpeg' },
         { name: 'Chicken', price: 5.5, imgSrc: './pictures/chick.jpeg' },
         { name: 'Rice', price: 3.0, imgSrc: './pictures/rice.jpeg' },

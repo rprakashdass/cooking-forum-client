@@ -21,8 +21,8 @@ const Cart = ({ cart, removeItem, totalPrice, checkout }) => {
             <td className="border px-2 py-1">₹{(item.price * item.quantity).toFixed(2)}</td>
             <td className="border px-2 py-1">
             <button
-            className="bg-red-500 text-white py-1 px-2 rounded"
-            onClick={() => removeItem(index)}
+                className="bg-red-500 text-white py-1 px-2 rounded"
+                onClick={() => removeItem(index)}
             >
             Remove
             </button>

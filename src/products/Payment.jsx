@@ -17,23 +17,28 @@ const PaymentProcessing = () => {
     }, []);
 
     return (
-        <div className="container mt-5">
-        <h2>Checkout Summary</h2>
-        <div id="cart-summary">
-        {cart.length > 0 ? (
-            <>
-            {cart.map((item, index) => (
-                <p key={index}>
-                {item.name} - ₹{(item.price * item.quantity).toFixed(2)}
-                </p>
-            ))}
-            <h5>Total: ₹{total.toFixed(2)}</h5>
-            </>
-        ) : (
-            <p>Your cart is empty.</p>
-        )}
-        </div>
-        <button className="btn btn-primary mt-3">Proceed to Payment</button>
+        <div className="container mx-auto mt-5 p-5 bg-white shadow-md rounded-lg">
+            <h2 className="text-2xl font-bold mb-4">Checkout Summary</h2>
+            <div id="cart-summary">
+                {cart.length > 0 ? (
+                    <>
+                        <div className="mb-4">
+                            {cart.map((item, index) => (
+                                <div key={index} className="flex justify-between border-b py-2">
+                                    <span className="text-lg">{item.name}</span>
+                                    <span className="text-lg">₹{(item.price * item.quantity).toFixed(2)}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <h5 className="text-xl font-semibold mt-2">Total: ₹{total.toFixed(2)}</h5>
+                    </>
+                ) : (
+                    <p className="text-gray-500">Your cart is empty.</p>
+                )}
+            </div>
+            <button className="w-full mt-4 bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition duration-300">
+                Proceed to Payment
+            </button>
         </div>
     );
 };

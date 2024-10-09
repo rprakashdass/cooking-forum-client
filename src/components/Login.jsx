@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import toastify styles
+import { UserContext } from "../util/context/UserContext";
 
 const Login = () => {
+  const { setUsername } = useContext(UserContext);
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
@@ -40,10 +41,11 @@ const Login = () => {
         { withCredentials: true }
       );
 
-      const { success, message } = data;
+      const { success, message, username } = data;
 
       if (success) {
         handleSuccess(message);
+        setUsername(username);
         setTimeout(() => {
           navigate("/");
         }, 1000);
@@ -55,7 +57,6 @@ const Login = () => {
       handleError("An unexpected error occurred. Please try again.");
     }
 
-    // Clear input fields after submission
     setInputValue({
       email: "",
       password: "",

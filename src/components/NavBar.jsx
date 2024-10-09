@@ -3,11 +3,15 @@ import Search from "./Search";
 import Home from "./Home";
 import Contact from "./Contact";
 import CommunityPost from "./CommunityPost";
+import { UserContext } from "../util/context/UserContext";
+import { useContext } from "react";
 
 function NavBar() {
+  const { username } = useContext(UserContext);
     return (
       <nav className="flex justify-between items-center p-6 bg-gray-100 shadow-md">
-        <div className="text-2xl font-bold">Toppings</div>
+        {/* <div className="text-2xl font-bold">Toppings</div> */}
+        <h1>Welcome, {username ? username : "Nivas"} </h1>
         <ul className="flex gap-6">
         {/* <li className="hover:underline"> */}
             <Link to="/Home" className="hover:underline">
@@ -29,12 +33,6 @@ function NavBar() {
           {/* </li> */}
           <Link to="/CommunityPost" className="hover:underline">
               Discuss
-            </Link>
-            <Link to="/Login" className="hover:underline">
-                Login
-            </Link>
-            <Link to="/SignUp" className="hover:underline">
-                SignUp
             </Link>
         </ul>
       </nav>
