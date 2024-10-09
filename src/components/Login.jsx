@@ -1,50 +1,119 @@
-import React from 'react';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import toastify styles
 
-export const Login = () => {
-    return (
-        <div className=" flex flex-col items-center justify-center text-center p-5">
-        <div className="w-80  rounded-lg bg-gray-900 p-8 text-gray-200">
-            <p className="text-center text-2xl leading-8 font-bold">Login</p>
-            <form className="mt-6">
-                <div className="mt-1">
-                    <label htmlFor="username" className="block text-gray-400 mb-1">Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                        id="username"
-                        placeholder=""
-                        className="w-full rounded-md border border-gray-700 bg-gray-900 p-3 text-gray-200 outline-none focus:border-indigo-400"
-                    />
-                </div>
-                <div className="mt-4">
-                    <label htmlFor="password" className="block text-gray-400 mb-1">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder=""
-                        className="w-full rounded-md border border-gray-700 bg-gray-900 p-3 text-gray-200 outline-none focus:border-indigo-400"
-                    />
-                    <div className="flex justify-end text-xs text-gray-400 mt-2">
-                        <a rel="noopener noreferrer" href="#">Forgot Password?</a>
-                    </div>
-                </div>
-                <button className="w-full bg-indigo-400 py-3 text-center text-gray-900 font-semibold rounded-md mt-4">
-                    Sign in
-                </button>
-            </form>
-            <div className="flex items-center py-4">
-                <div className="flex-grow h-px bg-gray-700"></div>
-                <p className="px-3 text-sm text-gray-400">Login with social accounts</p>
-                <div className="flex-grow h-px bg-gray-700"></div>
-            </div>
-            
-            <p className="text-center text-xs leading-tight text-gray-400 mt-4">
-                Don't have an account?
-                <a rel="noopener noreferrer" href="#" className=""> Sign up</a>
-            </p>
+const Login = () => {
+  const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = inputValue;
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setInputValue({
+      ...inputValue,
+      [name]: value,
+    });
+  };
+
+  const handleError = (err) =>
+    toast.error(err, {
+      position: "bottom-left",
+    });
+
+  const handleSuccess = (msg) =>
+    toast.success(msg, {
+      position: "bottom-left",
+    });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "http://localhost:7777/login",
+        { ...inputValue },
+        { withCredentials: true }
+      );
+
+      const { success, message } = data;
+
+      if (success) {
+        handleSuccess(message);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        handleError(message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      handleError("An unexpected error occurred. Please try again.");
+    }
+
+    // Clear input fields after submission
+    setInputValue({
+      email: "",
+      password: "",
+    });
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center text-gray-800">Login Account</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-600">
+              Email
+            </label>
+            <input
+              type="email"
+              className="w-full px-3 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-indigo-300"
+              name="email"
+              value={email}
+              placeholder="Enter your email"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
+              Password
+            </label>
+            <input
+              type="password"
+              className="w-full px-3 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-indigo-300"
+              name="password"
+              value={password}
+              placeholder="Enter your password"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full py-2 mt-4 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Submit
+          </button>
+        </form>
+        <div className="text-center mt-4">
+          <span className="text-sm text-gray-600">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-indigo-500 hover:underline">
+              Signup
+            </Link>
+          </span>
         </div>
-        </div>
-    );
+      </div>
+      <ToastContainer />
+    </div>
+  );
 };
 
+export default Login;

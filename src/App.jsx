@@ -5,10 +5,6 @@ import Home from './components/Home';
 import Search from './components/Search';
 import Contact from './components/Contact';
 import CommunityPost from './components/CommunityPost';
-import Cart from './products/Cart';
-import { Login } from './components/Login';
-import { SignUp } from './components/SignUp';
-import CartIndex from './products/CartIndex';
 
 function App() {
   return (
@@ -16,17 +12,15 @@ function App() {
       <NabBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/search" element={<Search />} />
         <Route path="/CartIndex" element={<CartIndex />} />
         <Route path="/CommunityPost" element={<CommunityPost />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/SignUp" element={<SignUp/>} />
       </Routes>
     </Router>
-  
-
     
   );
 }
