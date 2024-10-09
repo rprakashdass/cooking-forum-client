@@ -10,6 +10,7 @@ import Signup from './components/SignUp';
 import CartIndex from './products/CartIndex';
 import { UserProvider } from './util/context/UserContext';
 import PaymentProcessing from './products/Payment';
+import RecipeDetails from './components/RecipeDetails';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/dishes/:id/recipes" element={<RecipeDetails/>} />
         <Route path="/checkout" element={<PaymentProcessing />} />
         <Route path="/CartIndex" element={<CartIndex />} />
         <Route path="/CommunityPost" element={<CommunityPost />} />
