@@ -23,6 +23,9 @@ function NavBar() {
             <Link to="/Contact" className="hover:underline">
               Contact
             </Link>
+            <Link to="/CartIndex" className="hover:underline">
+              Cart
+            </Link>
           {/* </li> */}
           <Link to="/CommunityPost" className="hover:underline">
               Discuss
