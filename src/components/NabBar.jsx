@@ -27,6 +27,12 @@ function NavBar() {
           <Link to="/CommunityPost" className="hover:underline">
               Discuss
             </Link>
+            <Link to="/Login" className="hover:underline">
+                Login
+            </Link>
+            <Link to="/SignUp" className="hover:underline">
+                SignUp
+            </Link>
         </ul>
       </nav>
     );
