@@ -7,7 +7,7 @@ import CommunityPost from "./CommunityPost";
 function NavBar() {
     return (
       <nav className="flex justify-between items-center p-6 bg-gray-100 shadow-md">
-        <div className="text-2xl font-bold">Cooking Area</div>
+        <div className="text-2xl font-bold">Toppings</div>
         <ul className="flex gap-6">
         {/* <li className="hover:underline"> */}
             <Link to="/Home" className="hover:underline">

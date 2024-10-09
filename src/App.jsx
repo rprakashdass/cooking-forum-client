@@ -5,9 +5,6 @@ import Home from './components/Home';
 import Search from './components/Search';
 import Contact from './components/Contact';
 import CommunityPost from './components/CommunityPost';
-import { HomePage } from './components/HomePage';
-import { SignUp } from './components/SignUp';
-import { Login } from './components/Login';
 
 function App() {
   return (
@@ -18,6 +15,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/products" element={<CartIndex />} />
         <Route path="/CommunityPost" element={<CommunityPost />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp/>} />
