@@ -1,18 +1,27 @@
 import { Link } from "react-router-dom";
+import { UserContext } from "../util/context/UserContext";
+import { useContext } from "react";
 
 function NavBar() {
+  const { username } = useContext(UserContext);
+
   return (
     <nav className="flex justify-between items-center p-6 h-[12vh] bg-gray-200 shadow-md rounded-md">
       <div className="flex justify-start gap-4">
+        {/* Logo Image */}
         <img
-          src="../src/assets/img/diet.png"
+          src="diet.png"
           alt="Logo"
           className="w-10 h-10 transform hover:scale-105 transition duration-300"
         />
-        <div className="text-2xl font-bold text-slate-900 bg-gradient-to-r items-center from-blue-500 via-teal-500 to-pink-500 bg-clip-text text-transparent text-center select-auto transform hover:scale-105 transition duration-300">
-          Toppings
+        
+        {/* Toppings Title with Gradient */}
+        <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-teal-500 to-pink-500 bg-clip-text text-transparent select-auto transform hover:scale-105 transition duration-300">
+          Toppings {username ? `(${username})` : "(Guest)"}
         </div>
       </div>
+
+      {/* Navigation Links */}
       <ul className="flex gap-6">
         <Link
           to="/Home"
@@ -37,6 +46,18 @@ function NavBar() {
           className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
         >
           Discuss
+        </Link>
+        <Link
+          to="/CartIndex"
+          className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
+        >
+          Cart
+        </Link>
+        <Link
+          to="/login"
+          className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
+        >
+          Login
         </Link>
       </ul>
     </nav>
