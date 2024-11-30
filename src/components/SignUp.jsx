@@ -1,135 +1,85 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import { addUser } from '../service/api'; 
+import { toast } from "react-toastify"; 
+import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
-  const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const { username, email, password } = inputValue;
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
-  };
-
-  const handleError = (err) =>
-    toast.error(err, {
-      position: "bottom-left",
+export const SignUp = () => {
+    const navigate = useNavigate(); 
+    const [userDetails, setUserDetails] = useState({
+        username: "",
+        email: "",
+        password: "",
     });
 
-  const handleSuccess = (msg) =>
-    toast.success(msg, {
-      position: "bottom-left",
-    });
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserDetails({ ...userDetails, [name]: value });
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const { data } = await axios.post(
-        "http://localhost:7777/signup",
-        { ...inputValue },
-        { withCredentials: true }
-      );
+    const handleAddUser = async (e) => {
+        e.preventDefault(); 
+        try {
+            const response = await addUser(userDetails);
+            if (response.status === 201) {
+                toast.success("User added successfully!");
+                setUserDetails({ username: "", email: "", password: "" }); 
+                navigate('/login'); 
+            }
+        } catch (error) {
+            console.error("Error adding user:", error.response ? error.response.data : error.message);
+            toast.error("Failed to add user. Please try again.");
+        }
+    };
 
-      const { success, message } = data;
-
-      if (success) {
-        handleSuccess(message);
-        setTimeout(() => {
-          navigate("/login"); // Redirect to login page after signup
-        }, 1000);
-      } else {
-        handleError(message);
-      }
-    } catch (error) {
-      console.error("Signup error:", error);
-      handleError("An unexpected error occurred. Please try again.");
-    }
-
-    // Clear input fields after submission
-    setInputValue({
-      name: "",
-      email: "",
-      password: "",
-    });
-  };
-
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Create Account</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-600">
-              Name
-            </label>
-            <input
-              type="text"
-              className="w-full px-3 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-indigo-300"
-              name="username"
-              value={username}
-              placeholder="Enter your name"
-              onChange={handleOnChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">
-              Email
-            </label>
-            <input
-              type="email"
-              className="w-full px-3 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-indigo-300"
-              name="email"
-              value={email}
-              placeholder="Enter your email"
-              onChange={handleOnChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-              Password
-            </label>
-            <input
-              type="password"
-              className="w-full px-3 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-indigo-300"
-              name="password"
-              value={password}
-              placeholder="Enter your password"
-              onChange={handleOnChange}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full py-2 mt-4 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Signup
-          </button>
-        </form>
-        <div className="text-center mt-4">
-          <span className="text-sm text-gray-600">
-            Already have an account?{" "}
-            <Link to="/login" className="text-indigo-500 hover:underline">
-              Login
-            </Link>
-          </span>
+    return (
+        <div className="flex flex-col items-center justify-center text-center">
+            <div className="w-[350px] h-[500px] flex flex-col justify-center items-center bg-[#EDDCD9] border-2 border-[#264143] rounded-2xl shadow-[3px_4px_0px_1px_#E99F4C] p-6">
+                <p className="text-[#264143] font-bold text-2xl mt-5">SIGN UP</p>
+                <form onSubmit={handleAddUser}>
+                    <div className="flex flex-col items-baseline m-2">
+                        <label className="font-semibold mb-1" htmlFor="username">Name</label>
+                        <input
+                            placeholder="Enter your full name"
+                            name="username"
+                            onChange={handleChange}
+                            value={userDetails.username}
+                            className="outline-none border-2 border-[#264143] shadow-[3px_4px_0px_1px_#E99F4C] w-[290px] p-3 rounded-md text-base"
+                            type="text"
+                            required
+                        />
+                    </div>
+                    <div className="flex flex-col items-baseline m-2">
+                        <label className="font-semibold mb-1" htmlFor="email">Email</label>
+                        <input
+                            placeholder="Enter your email"
+                            name="email"
+                            onChange={handleChange}
+                            value={userDetails.email}
+                            className="outline-none border-2 border-[#264143] shadow-[3px_4px_0px_1px_#E99F4C] w-[290px] p-3 rounded-md text-base"
+                            type="email"
+                            required
+                        />
+                    </div>
+                    <div className="flex flex-col items-baseline m-2">
+                        <label className="font-semibold mb-1" htmlFor="password">Password</label>
+                        <input
+                            placeholder="Enter your password"
+                            name="password"
+                            onChange={handleChange}
+                            value={userDetails.password}
+                            className="outline-none border-2 border-[#264143] shadow-[3px_4px_0px_1px_#E99F4C] w-[290px] p-3 rounded-md text-base"
+                            type="password"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <button type="submit" className="bg-[#DE5499] text-white font-extrabold rounded-lg shadow-[3px_3px_0px_0px_#E99F4C] w-[290px] py-4 my-6 hover:opacity-90">
+                            SIGN UP
+                        </button>
+                        <p>Have an Account? <a className="font-extrabold text-[#264143] p-1" href="/login">Login Here!</a></p>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
-      <ToastContainer />
-    </div>
-  );
+    );
 };
-
-export default Signup;
