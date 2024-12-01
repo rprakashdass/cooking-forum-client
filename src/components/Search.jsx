@@ -51,7 +51,7 @@ function Search() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {filteredRecipes.length > 0 ? (
           filteredRecipes.map((dish, index) => (
-            <Link to={`/dishes/${dish._id}/recipes`} key={index} className="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer">
+            <Link to={`/dishes/${"Biryani"}/recipes`} key={index} className="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer">
               <img
                 src={dish.image}
                 alt={dish.name}

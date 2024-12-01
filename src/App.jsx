@@ -8,13 +8,11 @@ import CommunityPost from './components/CommunityPost';
 import Login from './components/Login';
 import Signup from './components/SignUp';
 import CartIndex from './products/CartIndex';
-import { UserProvider } from './util/context/UserContext';
 import PaymentProcessing from './products/Payment';
 import RecipeDetails from './components/RecipeDetails';
 
 function App() {
   return (
-    <UserProvider>
     <Router>
       <NavBar />
       <Routes>
@@ -30,7 +28,6 @@ function App() {
         <Route path="/CommunityPost" element={<CommunityPost />} />
       </Routes>
     </Router>
-    </UserProvider>
   );
 }
 

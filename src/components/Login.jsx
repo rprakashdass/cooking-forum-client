@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { getUser } from '../service/api';
-import { useUser } from './UserContext';
+import { getUser } from '../util/service/api';
+5
 export const Login = () => {
     const navigate = useNavigate();
-    const { setUser } = useUser();
     const [inputValue, setInputValue] = useState({
         username: "",
         password: "",
@@ -103,7 +102,7 @@ export const Login = () => {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-600">
-                            UserName
+                            Username
                         </label>
                         <input
                             type="text"

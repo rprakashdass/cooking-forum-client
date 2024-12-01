@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { addUser } from '../service/api'; 
+import { addUser } from '../util/service/api'; 
 import { toast } from "react-toastify"; 
 import { useNavigate } from "react-router-dom";
 
-export const SignUp = () => {
+const  SignUp = () => {
     const navigate = useNavigate(); 
     const [userDetails, setUserDetails] = useState({
         username: "",
@@ -83,3 +83,5 @@ export const SignUp = () => {
         </div>
     );
 };
+
+export default SignUp;
