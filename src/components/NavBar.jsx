@@ -1,65 +1,47 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-function NavBar() {
+export const Navbar = () => {
+  const NavLinks = [
+    {
+      title: "UserManage",
+      path: "/",
+    },
+    {
+      title: "Recipes",
+      path: "/recipes",
+    },
+    {
+      title: "Cart",
+      path: "/cart",
+    },
+    {
+      title: "Discussion",
+      path: "/discussion",
+    },
+    {
+      title: "Login",
+      path: "/login",
+    },
+  ];
 
   return (
-    <nav className="flex justify-between items-center p-6 h-[12vh] bg-gray-200 shadow-md rounded-md">
-      <div className="flex justify-start gap-4">
-        {/* Logo Image */}
-        <img
-          src="diet.png"
-          alt="Logo"
-          className="w-10 h-10 transform hover:scale-105 transition duration-300"
-        />
-        
-        {/* Toppings Title with Gradient */}
-        <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-teal-500 to-pink-500 bg-clip-text text-transparent select-auto transform hover:scale-105 transition duration-300">
-          Toppings
-        </div>
+    <div className="flex items-center justify-between px-4 py-3 sticky top-0 bg-zinc-400 shadow-md z-50">
+      <div className="text-lg font-bold text-white">
+        <NavLink to="/">Home</NavLink>
       </div>
-
-      {/* Navigation Links */}
-      <ul className="flex gap-6">
-        <Link
-          to="/Home"
-          className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
-        >
-          Home
-        </Link>
-        <Link
-          to="/Search"
-          className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
-        >
-          Search
-        </Link>
-        <Link
-          to="/Contact"
-          className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
-        >
-          Contact
-        </Link>
-        <Link
-          to="/CommunityPost"
-          className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
-        >
-          Discuss
-        </Link>
-        <Link
-          to="/CartIndex"
-          className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
-        >
-          Cart
-        </Link>
-        <Link
-          to="/login"
-          className="transform hover:scale-105 transition duration-300 hover:text-gray-500"
-        >
-          Login
-        </Link>
-      </ul>
-    </nav>
+      <div className="flex items-center gap-6">
+        {NavLinks.map((navdata, index) => (
+          <NavLink key={index} to={navdata.path}>
+            <button
+              type="button"
+              className="text-gray-500 font-bold hover:text-slate-200 hover:underline"
+            >
+              {navdata.title}
+            </button>
+          </NavLink>
+        ))}
+      </div>
+    </div>
   );
-}
-
-export default NavBar;
+};
